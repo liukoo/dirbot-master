@@ -108,7 +108,7 @@ class DmozSpider(CrawlSpider):
         content = self.conv(content)
         sell_count = self.r_sell_count.search(content).group(1)
         ####写入数据库
-        print "MMMMMMMMMMMMMMM:-----"+sell_count
+        print "MMMMMMMMMMMMMM:-----"+sell_count
         #过滤月销量为0的商品
         if sell_count!="0":
             buyer_list = self.r_pro_buyer_list.search(html)
