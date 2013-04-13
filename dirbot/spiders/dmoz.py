@@ -70,29 +70,29 @@ class DmozSpider(CrawlSpider):
                 #过滤总销量为0的商品
                 if sell_count.pop()!="0":
                     value = 'http://detail.tmall.com/item.htm?id='+i[0]
-                    sql ="select * from task where url=%s"
-                    result= self.cur.execute(sql,value)
-                    if not result:
-                        sql = "insert into task(url) values(%s)"
-                        self.cur.execute(sql,value)
-                        self.conn.commit()
-                        item = Website()
-                        item['url'] = 'http://detail.tmall.com/item.htm?id='+i[0]
-                        item['title'] = i[1].strip()
-                        items.append(item)
-                        items.extend([self.make_requests_from_url(value).replace(callback=self.parse_product)])
+                    #sql ="select * from task where url=%s"
+                    #result= self.cur.execute(sql,value)
+                    #if not result:
+                        #sql = "insert into task(url) values(%s)"
+                        #self.cur.execute(sql,value)
+                        #self.conn.commit()
+                    item = Website()
+                    item['url'] = 'http://detail.tmall.com/item.htm?id='+i[0]
+                    item['title'] = i[1].strip()
+                    items.append(item)
+                    items.extend([self.make_requests_from_url(value).replace(callback=self.parse_product)])
         if page:
-            sql ="select * from task where url=%s"
-            result= self.cur.execute(sql,page[0])
-            if not result:
-                sql = "insert into task(url) values(%s)"
-                self.cur.execute(sql,page[0])
-                self.conn.commit()
-                item = Website()
-                item['url'] = page[0]
-                item['title'] = 'new page'
-                items.append(item)
-                items.extend([self.make_requests_from_url(page[0]).replace(callback=self.parse_item)])
+            #sql ="select * from task where url=%s"
+            #result= self.cur.execute(sql,page[0])
+            #if not result:
+                #sql = "insert into task(url) values(%s)"
+                #self.cur.execute(sql,page[0])
+                #self.conn.commit()
+            item = Website()
+            item['url'] = page[0]
+            item['title'] = 'new page'
+            items.append(item)
+            items.extend([self.make_requests_from_url(page[0]).replace(callback=self.parse_item)])
         return items
 
     #抓取商品
@@ -101,9 +101,6 @@ class DmozSpider(CrawlSpider):
         headers = {"User-Agent": "Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-CN; rv:1.9.1) Gecko/20090624 Firefox/3.5"}
         items=[]
         html = self.conv(response.body)
-        #rule_sell = re.compile(r"initApi\" : \"(.*)\",")
-        #rule_count = re.compile(r"sellCount\":(\d+)}")
-        #rule_pid = re.compile(r"itemId:\"(\d+)\"")
         sell_url =self.r_init_url.search(html).group(1)
         product_id = self.r_pro_id.findall(html)
         headers['Referer'] = 'http://detail.tmall.com/item.htm?id='+str(product_id)
@@ -111,21 +108,18 @@ class DmozSpider(CrawlSpider):
         content = self.conv(content)
         sell_count = self.r_sell_count.search(content).group(1)
         ####写入数据库
-        print "MMMMMMMMMMMMMMM"+sell_count
-        #
-        #rule_title = re.compile(r"\"title\":\"(.*)\"")
-        #rule_price = re.compile(r"reservePrice\' : \'(.*)\'")
-        #匹配成交记录
-        #rule2 = re.compile(r"detail:params=\"(.*),")
-        buyer_list = self.r_pro_buyer_list.search(html)
-        if buyer_list:
-            buyer_list = buyer_list.group(1)
-            buyer_list = buyer_list.replace("mdskip.taobao.com/extension/dealRecords.htm","tbskip.taobao.com/json/show_buyer_list.htm")
-            item = Website()
-            item['url'] = buyer_list
-            item['title'] = 'buyer_list page'
-            items.append(item)
-            items.extend([self.make_requests_from_url(buyer_list).replace(callback=self.parse_buyer_list)])
+        print "MMMMMMMMMMMMMMM:-----"+sell_count
+        #过滤月销量为0的商品
+        if sell_count!="0":
+            buyer_list = self.r_pro_buyer_list.search(html)
+            if buyer_list:
+                buyer_list = buyer_list.group(1)
+                buyer_list = buyer_list.replace("mdskip.taobao.com/extension/dealRecords.htm","tbskip.taobao.com/json/show_buyer_list.htm")
+                item = Website()
+                item['url'] = buyer_list
+                item['title'] = 'buyer_list page'
+                items.append(item)
+                items.extend([self.make_requests_from_url(buyer_list).replace(callback=self.parse_buyer_list)])
         product_name = self.r_pro_name.findall(html)
         price = self.r_pro_price.findall(html)
         if price:
@@ -149,18 +143,6 @@ class DmozSpider(CrawlSpider):
         print '++++++++++++++++++++++++++++++++parse_detail start'
         items = []
         html = self.conv(response.body)
-        #匹配货号
-        #rule1 = re.compile(r"item_id=(\d+)")
-        #匹配下一页成交记录
-        #rule2 = re.compile(r"detail:params=\"(.*),.*page-next\"><span>")
-        #匹配拍下价格
-        #rule3 = re.compile(r"<em>(\d+)</em>")
-        #匹配拍下数量
-        #rule4 = re.compile(r"<td>(\d+)</td>")
-        #匹配拍下时间
-        #rule5 = re.compile(r"<td>(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2})</td>")
-        #匹配下一页页码
-        #rule7 = re.compile(r"page-cur\">(\d+)<")
         #当前页
         cur_page =int(self.r_buyer_cur_page.search(html).group(1))
         number = self.r_buyer_number.findall(html)
@@ -189,14 +171,14 @@ class DmozSpider(CrawlSpider):
             if price:
                 count_money+=i*price.pop()
             count_num+=i
-        sql ="select money,count from detail where product_id=%s"
-        result= self.cur.execute(sql,product_id)
-        if result:
-            row = self.cur.fetchall()
-            count_money +=int(row[0][0])
-            count_num+=int(row[0][1])
-            self.cur.execute("delete from detail where product_id=%s",product_id)
-            self.conn.commit()
+        #sql ="select money,count from detail where product_id=%s"
+        #result= self.cur.execute(sql,product_id)
+        #if result:
+        #row = self.cur.fetchall()
+        #count_money +=int(row[0][0])
+        #count_num+=int(row[0][1])
+            #self.cur.execute("delete from detail where product_id=%s",product_id)
+            #self.conn.commit()
         value.append(product_id)
         value.append(count_money)
         value.append(count_num)
@@ -206,7 +188,7 @@ class DmozSpider(CrawlSpider):
         if cur_page > 2:
             return []
         #如果存在下一页
-        if next_page and 1==2:
+        if 1==2 and next_page:
             page_url = next_page.group(1).replace("amp;","")  #下一页的url
             #如果列表中还有未抓取的成交记录页面
             if self.page_list:
@@ -230,6 +212,7 @@ class DmozSpider(CrawlSpider):
         return items
 
     def conv(self,str):
+        return str.decode('gbk')
         code =  chardet.detect(str)['encoding'].lower()
         if code =='utf-8':
             str = str.decode('utf-8')
