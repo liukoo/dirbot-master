@@ -1,0 +1,12 @@
+setup.py
+dirbot/__init__.py
+dirbot/items.py
+dirbot/pipelines.py
+dirbot/settings.py
+dirbot.egg-info/PKG-INFO
+dirbot.egg-info/SOURCES.txt
+dirbot.egg-info/dependency_links.txt
+dirbot.egg-info/entry_points.txt
+dirbot.egg-info/top_level.txt
+dirbot/spiders/__init__.py
+dirbot/spiders/dmoz.py

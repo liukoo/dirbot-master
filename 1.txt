@@ -1,0 +1,282 @@
+
+ 
+	        			            
+<table summary="买家出价记录" border="0" cellspacing="0" cellpadding="0" class="table-deal-record" server-num="tbskip184158.cm4">
+			<caption class="month-record">
+			本商品累计售出<em class="count">9286</em>件
+							，最近一个月成交<em>null</em>件
+					</caption>
+	        <colgroup>
+	        <col class="col-buyer"/>
+	        <col class="col-goods"/>
+	        <col class="col-price"/>
+	        <col class="col-amount"/>
+	        <col class="col-chargetime"/>
+	        <col class="col-status"/>
+	    </colgroup>
+	     <tr>
+	        <th>买家<span class="tb-anonytip">[登录后可见]</span></th>
+	        <th>宝贝名称</th>
+	        <th>拍下价格</th>
+	        <th>购买数量</th>
+	        <th>成交时间</th>
+	        <th>状态</th>
+        </tr>
+	    		    		        <tr>
+	        				<td class="cell-align-l">
+															    p<span class=tb-anonymous>**</span>g
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_5.gif" title="151－250个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V3会员"><img src="http://img01.taobaocdn.com/tps/i1/T1GYuIXcRkXXXXXXXX-16-16.png" alt="V3会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸红色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-12 09:54:23</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr class="odd">
+	        				<td class="cell-align-l">
+															    a<span class=tb-anonymous>**</span>a
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_blue_3.gif" title="1001－2000个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V4会员"><img src="http://img02.taobaocdn.com/tps/i2/T1HbuIXcNkXXXXXXXX-16-16.png" alt="V4会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-12 01:11:01</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr>
+	        				<td class="cell-align-l">
+															    t<span class=tb-anonymous>**</span>9
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_blue_1.gif" title="251－500个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V4会员"><img src="http://img02.taobaocdn.com/tps/i2/T1HbuIXcNkXXXXXXXX-16-16.png" alt="V4会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:30寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 15:17:43</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr class="odd">
+	        				<td class="cell-align-l">
+															    m<span class=tb-anonymous>**</span>5
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_2.gif" title="11－40个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V1会员"><img src="http://img03.taobaocdn.com/tps/i3/T1PbuIXclkXXXXXXXX-16-16.png" alt="V1会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:26寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>2</td>
+	            <td>2013-03-11 14:25:09</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr>
+	        				<td class="cell-align-l">
+															    渝<span class=tb-anonymous>**</span>鹰
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_2.gif" title="11－40个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V2会员"><img src="http://img04.taobaocdn.com/tps/i4/T1FHuIXcNkXXXXXXXX-16-16.png" alt="V2会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 13:14:58</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr class="odd">
+	        				<td class="cell-align-l">
+															    糖<span class=tb-anonymous>**</span>9
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_2.gif" title="11－40个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V2会员"><img src="http://img04.taobaocdn.com/tps/i4/T1FHuIXcNkXXXXXXXX-16-16.png" alt="V2会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 13:02:23</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr>
+	        				<td class="cell-align-l">
+															    c<span class=tb-anonymous>**</span>0
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_4.gif" title="91－150个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V2会员"><img src="http://img04.taobaocdn.com/tps/i4/T1FHuIXcNkXXXXXXXX-16-16.png" alt="V2会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 12:43:19</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr class="odd">
+	        				<td class="cell-align-l">
+															    r<span class=tb-anonymous>**</span>8
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_5.gif" title="151－250个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V3会员"><img src="http://img01.taobaocdn.com/tps/i1/T1GYuIXcRkXXXXXXXX-16-16.png" alt="V3会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:26寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 11:25:53</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr>
+	        				<td class="cell-align-l">
+															    咫<span class=tb-anonymous>**</span>4
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_5.gif" title="151－250个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V2会员"><img src="http://img04.taobaocdn.com/tps/i4/T1FHuIXcNkXXXXXXXX-16-16.png" alt="V2会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸金色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 11:05:44</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr class="odd">
+	        				<td class="cell-align-l">
+															    哎<span class=tb-anonymous>**</span>1
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_3.gif" title="41－90个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V2会员"><img src="http://img04.taobaocdn.com/tps/i4/T1FHuIXcNkXXXXXXXX-16-16.png" alt="V2会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 10:49:34</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr>
+	        				<td class="cell-align-l">
+															    l<span class=tb-anonymous>**</span>l
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_blue_1.gif" title="251－500个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V3会员"><img src="http://img01.taobaocdn.com/tps/i1/T1GYuIXcRkXXXXXXXX-16-16.png" alt="V3会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 10:38:23</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr class="odd">
+	        				<td class="cell-align-l">
+															    郭<span class=tb-anonymous>**</span>祥
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_4.gif" title="91－150个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V2会员"><img src="http://img04.taobaocdn.com/tps/i4/T1FHuIXcNkXXXXXXXX-16-16.png" alt="V2会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 10:27:21</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr>
+	        				<td class="cell-align-l">
+															    w<span class=tb-anonymous>**</span>g
+												                        
+
+<img src="http://pics.taobaocdn.com/newrank/b_red_5.gif" title="151－250个买家信用积分" border="0" align="absmiddle" class="rank" />															<a target="_blank" href="http://vip.taobao.com" title="V3会员"><img src="http://img01.taobaocdn.com/tps/i1/T1GYuIXcRkXXXXXXXX-16-16.png" alt="V3会员"></a>
+																				</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:26寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>2</td>
+	            <td>2013-03-11 09:18:48</td>
+	            <td>成交 </td>
+	        </tr>
+            		    		        <tr class="odd">
+	        				<td class="cell-align-l">
+															    s<span class=tb-anonymous>**</span>9
+												                        
+
+																											</td>
+	        				<td class="cell-align-l">
+																														正品包邮 龙泉宝剑龙泉剑 不锈钢双龙武术太极剑 特价宝剑 未开刃					<br/>
+				   颜色分类:28寸青色款（锦盒装）
+				</td>
+	            <td><em>138</em>
+																			</td>
+	            <td>1</td>
+	            <td>2013-03-11 00:32:54</td>
+	            <td>成交 </td>
+	        </tr>
+                </table>
+	  
+	<div class="pagination">
+	    	     <div class="page-bottom">
+				     	<span class="page-info"> </span>
+	     																        	<a class="page-prev J_TAjaxTrigger"  detail:params="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=47,showBuyerList" href="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=47">
+		        		<span>上一页</span>
+		        	</a>
+								    				<a href="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=1" detail:params="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=1,showBuyerList" class="J_TAjaxTrigger page-next">1</a>
+    				<a href="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=2" detail:params="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=2,showBuyerList" class="J_TAjaxTrigger page-next">2</a>
+    				<span class="page-break">…</span>
+					    				<a href="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=46" detail:params="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=46,showBuyerList" class="J_TAjaxTrigger page-next">46</a>
+    									<a href="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=47" detail:params="http://tbskip.taobao.com/json/show_buyer_list.htm?is_offline=&amp;page_size=15&amp;is_start=false&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;user_tag=303108640&amp;old_quantity=2476&amp;sold_total_num=null&amp;closed=false&amp;seller_num_id=673250086&amp;zhichong=true&amp;taohua=&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede&bidPage=47,showBuyerList" class="J_TAjaxTrigger page-next">47</a>
+					    				<span class="page-cur">48</span>
+						        		        	<span class="page-end"><span>下一页</span></span>
+		        	    </div>
+	</div>
+
+	    	    		    		    		    		    		<p class="view-all"><a id="J_LinkViewAll" detail:params="http://tbskip.taobao.com/json/show_buyer_list.htm?bid_page=1&amp;page_sizename=pageSize&amp;is_start=true&amp;item_type=b&amp;ends=1365937404000&amp;starts=1365332604000&amp;item_id=9362928994&amp;zhichong=true&amp;taohua=null&amp;user_tag=303108640&amp;seller_num_id=673250086&amp;title=null&amp;sold_total_num=null&amp;is_from_detail=yes&amp;total_sq=9286&amp;sbn=c5e9ef46102980b4b4075b158f60bede,showBuyerList" class="J_TAjaxTrigger" href="http://item.taobao.com/item.htm?id=9362928994">查看更多历史记录<ins></ins></a></p>
+    		
+                	
