@@ -7,19 +7,25 @@ try:
     #写入
     val= 'liukoo'
     sql = "insert into test(value) values(%s)"
-    n = cur.execute(sql,val)
+    #n = cur.execute(sql,val)
     #更新
     sql ="update test set value=%s where id=4"
     param =("inserting")
     #n = cur.execute(sql,param)
     #查询
-    sql ="select id from test where id=1"
+    sql ="select * from test1"
     n= cur.execute(sql)
+    num = 0
+    money = 0
     if n:
         for row in cur.fetchall():
-            print int(row[0])
+            num+=int(row[2])
+            money+=float(row[3])*int(row[2])
+
+        print num
+        print money
     #删除
-    sql ="delete from test where id>=10"
+    sql ="delete from test1 where id>=10"
     #cur.execute(sql)
 except MySQLdb.Error,e:
     print "Mysql Error %d: %s" % (e.args[0], e.args[1])

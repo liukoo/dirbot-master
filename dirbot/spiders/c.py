@@ -5,28 +5,33 @@ import re,time,MySQLdb,httplib2
 from dirbot.items import Product
 from dirbot.tools import conv
 class DmozSpider(CrawlSpider):
-    name = "taobao"
+    name = "c2c"
     allowed_domains = ["tmall.com","taobao.com"]
     def __init__(self):
         ####################################################################################################################
         #匹配商品列表页的下一页
         self.r_pro_list_page = re.compile(r"J_SearchAsync next\" href=\"(.*)\"")
-        #匹配商品列表页中商品名称、ID
-        self.r_pro_list_item = re.compile(r"detail.tmall.com/item.htm\?id=(\d+)&\" class=\"permalink\" style=\"\">\n+(.*)\n+</a>")
+        #匹配商品列表页中ID
+        #self.r_pro_list_item = re.compile(r"item-name\" href=\"http://item.taobao.com/item.htm\?id=(\d+)\"")
+        self.r_pro_list_item = re.compile(r"item.taobao.com/item.htm\?id=(\d+)&\" class=\"permalink\" style=\"\">")
         #匹配商品列表页中商品的销量
+        #self.r_pro_list_sell_count = re.compile(r"sale-num\">(\d+)</span>")
         self.r_pro_list_sell_count = re.compile(r"<em>(\d+)</em>")
+        #匹配单价
+        #self.r_pro_list_price = re.compile(r"c-price\">(.*) </span>")
+        self.r_pro_list_price = re.compile(r"<strong>(\d*\.\d*)</strong>")
         #匹配店铺ID
         self.r_shop_id = re.compile(r"shopid=\"(\d+)\"")
         #匹配商品详情页中init的地址 url
-        self.r_init_url = re.compile(r"initApi\" : \"(.*)\",")
+        self.r_init_url = re.compile(r"\"apiItemInfo\":\"(.*)\"")
         #配置商品init url中的月成交数量
-        self.r_sell_count = re.compile(r"sellCount\":(\d+)}")
+        self.r_sell_count = re.compile(r"quanity: (\d+)")
         #匹配商品详情页中的商品ID
         self.r_pro_id = re.compile(r"itemId:\"(\d+)\"")
         #匹配商品详情页中商品名称
         self.r_pro_name = re.compile(r"\"title\" value=\"(.*)\"")
         #匹配商品详情页的商品价格
-        self.r_pro_price = re.compile(r"reservePrice\' : \'(.*)\'")
+        #self.r_pro_price = re.compile(r"reservePrice\' : \'(.*)\'")
         #匹配商品详情页的成交记录URL
         self.r_pro_buyer_list = re.compile(r"detail:params=\"(.*),")
 
@@ -49,7 +54,7 @@ class DmozSpider(CrawlSpider):
 
     #开始
     def start_requests(self):
-        yield Request("http://zhengtaizj.tmall.com/search.htm?orderType=_coefp&viewType=grid&pageNum=33", method='get', callback=self.parse_item)
+        yield Request("http://shop33521264.taobao.com/search.htm", method='get', callback=self.parse_item)
         #sql ="select * from task_list"
         #self.cur.execute(sql)
         #result=self.cur.fetchall()
@@ -60,24 +65,29 @@ class DmozSpider(CrawlSpider):
     #抓取商品列表
     def parse_item(self,response):
         items = []
-        html = response.body
-        item_list = self.r_pro_list_item.findall(html)  #匹配商品名称、ID
+        html = conv(response.body)
+        item_list = self.r_pro_list_item.findall(html)  #匹配商品ID
         sell_count = self.r_pro_list_sell_count.findall(html) #匹配总销量
         page = self.r_pro_list_page.findall(html) #匹配下一页
+        price = self.r_pro_list_price.findall(html)  #单价
         if  item_list:
+            index = 0
             for i in item_list:
-                index = 0
                 #过滤总销量为0的商品
                 if sell_count[index]!="0":
-                    value = 'http://detail.tmall.com/item.htm?id='+i[0]
+                    value = 'http://item.taobao.com/item.htm?id='+i
                     #sql ="select * from task where url=%s"
                     #result= self.cur.execute(sql,value)
                     #if not result:
-                        #sql = "insert into task(url) values(%s)"
-                        #self.cur.execute(sql,value)
-                        #self.conn.commit()
+                    v = []
+                    v.append(i)
+                    v.append(price[index])
+                    sql = "insert into test(pid,money) values(%s,%s)"
+                    self.cur.execute(sql,v)
+                    self.conn.commit()
                     items.extend([self.make_requests_from_url(value).replace(callback=self.parse_product)])
                 index+=1
+
         if page:
             #sql ="select * from task where url=%s"
             #result= self.cur.execute(sql,page[0])
@@ -96,38 +106,37 @@ class DmozSpider(CrawlSpider):
         html = conv(response.body)
         sell_url =self.r_init_url.search(html).group(1)
         product_id = self.r_pro_id.search(html).group(1)
-        product_name = self.r_pro_name.search(html).group(1)
-        price = self.r_pro_price.search(html).group(1)
+
+
         shop_id = self.r_shop_id.search(html).group(1)
-        headers['Referer'] = 'http://detail.tmall.com/item.htm?id='+str(product_id)
+        headers['Referer'] = 'http://item.taobao.com/item.htm?id='+str(product_id)
         response, content = self.http.request(sell_url, 'GET',headers=headers)
         content = conv(content)
         sell_count = self.r_sell_count.search(content).group(1)
         print "MMMMMMMMMMMMMM:-----"+sell_count
         #过滤月销量为0的商品
         if int(sell_count)>0:
-            buyer_list = self.r_pro_buyer_list.search(html)
-            if buyer_list:
-                buyer_list = buyer_list.group(1)
-                buyer_list = buyer_list.replace("mdskip.taobao.com/extension/dealRecords.htm","tbskip.taobao.com/json/show_buyer_list.htm")
+            #buyer_list = self.r_pro_buyer_list.search(html)
+            if 1==1:
                 item = Product()
                 value = []
                 num = sell_count
-                money = price
-                value.append(product_id)
+                money = "?"
+
                 value.append(num)
-                value.append(money)
-                sql = "insert into test1(pid,num,money) values(%s,%s,%s)"
+                value.append(product_id)
+
+                sql ="update test set num=%s where pid=%s"
                 self.cur.execute(sql,value)
                 self.conn.commit()
-                item['url'] = buyer_list
+                item['url'] = 'buyer_list'
                 item['shop_id'] = shop_id
                 item['sales'] = sell_count
-                item['price']= price
-                item['name'] = product_name
+                item['price']= ""
+                item['name'] = ""
                 item['product_id'] =product_id
                 items.append(item)
-                items.extend([self.make_requests_from_url(buyer_list).replace(callback=self.parse_buyer_list)])
+                #items.extend([self.make_requests_from_url(buyer_list).replace(callback=self.parse_buyer_list)])
         print '++++++++++++++++++++++++++++++++parse_product end'
         return items
 
@@ -147,7 +156,7 @@ class DmozSpider(CrawlSpider):
         next_page =self.r_buyer_page.search(html)
         price_filter = [price[i] for i in range(len(price)) if price[i] not in price[:i]]
         result = {}
-        sql ="select num,money from test1 where pid=%s" % product_id
+        sql ="select num,money from test where pid=%s" % product_id
         self.cur.execute(sql)
         res=self.cur.fetchall()
         if not price:
@@ -157,7 +166,7 @@ class DmozSpider(CrawlSpider):
         value = []
         value.append(money)
         value.append(product_id)
-        sql ="update test1 set money=%s where pid=%s"
+        sql ="update test set money=%s where pid=%s"
         self.cur.execute(sql,value)
         self.conn.commit()
         #for money in price_filter:
