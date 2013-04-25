@@ -7,7 +7,8 @@ from dirbot.tools import conv
 class DmozSpider(CrawlSpider):
     name = "wap"
     allowed_domains = ["tmall.com","taobao.com"]
-    def __init__(self):
+    def __init__(self,**kwargs):
+        super(CrawlSpider, self).__init__(self, **kwargs)
         ####################################################################################################################
         self.Shop = re.compile(r"shopId=(\d*);")
         self.p_url = re.compile(r"<a href=\"http://a\.m\..*/i(.*)\.htm") #匹配商品链接
@@ -26,13 +27,21 @@ class DmozSpider(CrawlSpider):
         self.conn=MySQLdb.connect(host='localhost',user='root',passwd='',port=3306,charset='utf8')
         self.cur=self.conn.cursor()
         self.conn.select_db('python')
-        self.amount_num = 0
-        self.amount_money = 0
-        self.domain = "http://delixiguojidiangong.tmall.com/"
+        self.sales_num = 0
+        self.money = 0
+        self.domain = 0
+        self.mailto = 0
+        self.queue_id = 0
 
+    def __str__(self):
+        return "Taobao-spider V0.1 Coding By:liukoo"
     #开始
     def start_requests(self):
-        yield Request(self.domain, method='get', callback=self.parse_shop)
+        url = self.queue_pop() #从队列中读取一个店铺的url
+        if url:
+            yield Request(url, method='get', callback=self.parse_shop)
+        else:
+            self.log("Queue is Empty!")
 
     #开始抓取店铺
     def parse_shop(self,response):
@@ -88,8 +97,8 @@ class DmozSpider(CrawlSpider):
         print "MMMMMMMMMMMMMM:-----"+sales
         #过滤月销量为0的商品
         if int(sales)>0:
-            self.amount_num+=int(sales)
-            self.amount_money+=float(sales)*float(price)
+            self.sales_num+=int(sales)
+            self.money+=float(sales)*float(price)
             item = Product()
             item['shop_id'] = shopid
             item['sales'] = sales
@@ -101,7 +110,25 @@ class DmozSpider(CrawlSpider):
         print '++++++++++++++++++++++++++++++++parse_product end'
         print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
         print self.domain
-        print "num:"+str(self.amount_num)
-        print "money"+str(self.amount_money)
+        print "num:"+str(self.sales_num)
+        print "money"+str(self.money)
         print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
         return items
+
+    #从队列中读取任务信息
+    def queue_pop(self):
+        sql ="select * from queue where stat='0' order by id asc limit 1"
+        flag= self.cur.execute(sql)
+        if flag:
+            line = self.cur.fetchone()
+            self.cur.execute("LOCK TABLES queue READ")
+            self.queue_id = line[0]
+            shop_url = line[1]
+            self.cur.execute("UNLOCK TABLES")
+            self.cur.execute("update queue set stat='1' where id=%d" % self.queue_id)
+            self.conn.commit()
+            self.domain = shop_url
+            self.mailto = line[2]
+            return shop_url
+        return False
+

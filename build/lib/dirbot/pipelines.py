@@ -1,15 +1,13 @@
+#coding:utf-8
 from scrapy.exceptions import DropItem
-
-
+from scrapy.http import Request
 class FilterWordsPipeline(object):
-    """A pipeline for filtering out items which contain certain words in their
-    description"""
-
-    # put all words in lowercase
-    words_to_filter = ['politics', 'religion']
     def process_item(self, item, spider):
-        for word in self.words_to_filter:
-            if word in unicode(item['description']).lower():
-                raise DropItem("Contains forbidden word: %s" % word)
-        else:
-            return item
+        print 'pipeline process_item-----------------run start'
+        print  item['product_id']
+        print  item['shop_id']
+        print  item['name']
+        print  item['price']
+        print  item['sales']
+        print 'pipeline process_item-------------------run end'
+        return item

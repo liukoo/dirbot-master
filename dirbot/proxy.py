@@ -1,11 +1,17 @@
-import random
-class ProxyMiddleware(object):
-    def process_request(self, request, spider):
-        fd = open('ip.txt','r')
-        data = fd.readlines()
-        fd.close()
-        length = len(data)
-        index  = random.randint(0, length -1)
-        item = data[index].strip('\n').strip(' ')
-        arr = item.split(':')
-        request.meta['proxy'] = 'http://%s:%s' % (arr[0],arr[1])
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+def isPalindrome(n):
+    s = str(n)
+    return s == s[::-1]
+
+def main():
+    m1 = 1
+    m2 = 10000000
+    return [(i, i*i) for i in range(m1,m2) if isPalindrome(i) and isPalindrome(i*i)]
+
+if __name__ == '__main__':
+    import time
+    
+    st = time.time()
+    print(main(), time.time() - st)
