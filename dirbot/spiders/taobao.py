@@ -1,11 +1,17 @@
 ﻿# -*- coding: utf-8 -*-
+import re
 from scrapy.contrib.spiders import CrawlSpider
 from scrapy.http import Request
-import re,MySQLdb,httplib2
+import MySQLdb
+import httplib2
 from dirbot.items import Product
-from dirbot.tools import conv
-class DmozSpider(CrawlSpider):
-    name = "wap"
+from dirbot.include.tools import conv
+from dirbot.settings import DB_INFO
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+class TaobaoSpider(CrawlSpider):
+    name = "taobao"
     allowed_domains = ["tmall.com","taobao.com"]
     def __init__(self,**kwargs):
         super(CrawlSpider, self).__init__(self, **kwargs)
@@ -22,9 +28,10 @@ class DmozSpider(CrawlSpider):
         self.c_shopid = re.compile(r"shop(\d*)\.m")      #C店店铺ID
         self.d_shopid = re.compile(r"shop(\d*)\.m")      #C店店铺ID
         self.next_page = re.compile(r"c-pnav-next\">\r\n<a href=\"(.*)\"") #下一页
+        self.shopname= re.compile(r"<title>(.*) -") #店铺名称
         ####################################################################################################################
         self.http =httplib2.Http()
-        self.conn=MySQLdb.connect(host='localhost',user='root',passwd='',port=3306,charset='utf8')
+        self.conn=MySQLdb.connect(host=DB_INFO['HOST'],user=DB_INFO['USER'],passwd=DB_INFO['PASS'],port=DB_INFO['PORT'],charset='utf8')
         self.cur=self.conn.cursor()
         self.conn.select_db('python')
         self.sales_num = 0
@@ -32,6 +39,7 @@ class DmozSpider(CrawlSpider):
         self.domain = 0
         self.mailto = 0
         self.queue_id = 0
+        self.shop_name= 0
 
     def __str__(self):
         return "Taobao-spider V0.1 Coding By:liukoo"
@@ -39,6 +47,7 @@ class DmozSpider(CrawlSpider):
     def start_requests(self):
         url = self.queue_pop() #从队列中读取一个店铺的url
         if url:
+            url = 'http://'+url +'/'
             yield Request(url, method='get', callback=self.parse_shop)
         else:
             self.log("Queue is Empty!")
@@ -52,6 +61,7 @@ class DmozSpider(CrawlSpider):
         web = httplib2.Http()
         r,c = web.request(wap, 'GET',headers={"User-Agent":"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31"})
         c = conv(c)
+        self.shop_name = self.shopname.search(c).group(1)
         all_link = self.item_list.search(c).group(1).replace("&amp;",'&')
         yield Request(all_link, method='get', callback=self.parse_item)
 
@@ -83,8 +93,10 @@ class DmozSpider(CrawlSpider):
             if price:
                 price = price.group(1)
             else:
-                price = self.price3.search(html).group(1)
-
+                try:
+                 price = self.price3.search(html).group(1)
+                except AttributeError:
+                    return items
         sales = self.sales.search(html).group(1)  #月销量
         shopid = self.b_shopid.search(html)  #匹配商城的店铺ID
         if shopid:
@@ -117,16 +129,16 @@ class DmozSpider(CrawlSpider):
 
     #从队列中读取任务信息
     def queue_pop(self):
-        sql ="select * from queue where stat='0' order by id asc limit 1"
+        sql ="select * from admin_queue where stat='0' order by id asc limit 1"
         flag= self.cur.execute(sql)
         if flag:
             line = self.cur.fetchone()
-            self.cur.execute("LOCK TABLES queue READ")
+            self.cur.execute("LOCK TABLES admin_queue WRITE")
             self.queue_id = line[0]
             shop_url = line[1]
-            self.cur.execute("UNLOCK TABLES")
-            self.cur.execute("update queue set stat='1' where id=%d" % self.queue_id)
+            self.cur.execute("update admin_queue set stat='1' where id=%d" % self.queue_id)
             self.conn.commit()
+            self.cur.execute("UNLOCK TABLES")
             self.domain = shop_url
             self.mailto = line[2]
             return shop_url

@@ -1,9 +1,15 @@
 ﻿# -*- coding: utf-8 -*-
+import re
+
 from scrapy.contrib.spiders import CrawlSpider
 from scrapy.http import Request
-import re,time,MySQLdb,httplib2
+import MySQLdb
+import httplib2
+
 from dirbot.items import Product
-from dirbot.tools import conv
+from dirbot.include.tools import conv
+
+
 class DmozSpider(CrawlSpider):
     name = "taobao"
     allowed_domains = ["tmall.com","taobao.com"]

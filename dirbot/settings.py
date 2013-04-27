@@ -1,3 +1,4 @@
+#coding:utf-8
 # Scrapy settings for dirbot project
 SPIDER_MODULES = ['dirbot.spiders']
 NEWSPIDER_MODULE = 'dirbot.spiders'
@@ -26,3 +27,9 @@ COOKIES_ENABLED = False
 #AUTOTHROTTLE_START_DELAY = 1
 #AUTOTHROTTLE_CONCURRENCY_CHECK_PERIOD = 10
 #CONCURRENT_REQUESTS_PER_SPIDER = 30
+DB_INFO = {
+    "HOST":'localhost',
+    "USER":'root',
+    "PASS":'',
+    "PORT":3306
+}
