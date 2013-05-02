@@ -28,6 +28,8 @@ class SpiderOpenCloseLogging(object):
             spider.conn.close()
             mail_content = str(spider.shop_name)+"\n"
             mail_content += "30天销量:"+str(spider.sales_num)+" \n30天成交额:"+str(spider.money)+"\n店铺地址:"+str(spider.domain)+"\n"
+            mail_content+="---------------------------------------\n"
+            mail_content+=spider.shopinfo_str
             mail_title = str(spider.shop_name) +' 数据报告'
             self.mailer.send(to=[str(spider.mailto)], subject=mail_title, body=mail_content)
         log.msg("closed spider %s" % spider.name)

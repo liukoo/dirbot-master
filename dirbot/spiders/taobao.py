@@ -1,4 +1,7 @@
 ﻿# -*- coding: utf-8 -*-
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import re
 from scrapy.contrib.spiders import CrawlSpider
 from scrapy.http import Request
@@ -7,9 +10,6 @@ import httplib2
 from dirbot.items import Product
 from dirbot.include.tools import conv
 from dirbot.settings import DB_INFO
-import sys
-reload(sys)
-sys.setdefaultencoding('utf-8')
 class TaobaoSpider(CrawlSpider):
     name = "taobao"
     allowed_domains = ["tmall.com","taobao.com"]
@@ -29,6 +29,8 @@ class TaobaoSpider(CrawlSpider):
         self.d_shopid = re.compile(r"shop(\d*)\.m")      #C店店铺ID
         self.next_page = re.compile(r"c-pnav-next\">\r\n<a href=\"(.*)\"") #下一页
         self.shopname= re.compile(r"<title>(.*) -") #店铺名称
+        self.product_title = re.compile(r"<title>.*-(.*)</title>")  #商品标题
+        self.shop_info = re.compile(r"<label>(.*)</label>(\d\.\d)\r*\s*<em.*>(.*)</em>") #店铺评分
         ####################################################################################################################
         self.http =httplib2.Http()
         self.conn=MySQLdb.connect(host=DB_INFO['HOST'],user=DB_INFO['USER'],passwd=DB_INFO['PASS'],port=DB_INFO['PORT'],charset='utf8')
@@ -40,6 +42,7 @@ class TaobaoSpider(CrawlSpider):
         self.mailto = 0
         self.queue_id = 0
         self.shop_name= 0
+        self.shopinfo_str ="" #店铺评分信息
 
     def __str__(self):
         return "Taobao-spider V0.1 Coding By:liukoo"
@@ -54,18 +57,25 @@ class TaobaoSpider(CrawlSpider):
 
     #开始抓取店铺
     def parse_shop(self,response):
+        header = {"User-Agent":"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31"}
         items = []
         html = conv(response.body)
         wap = self.Shop.search(html).group(1)
+        shop_info_url = "http://shop%s.m.taobao.com/shop/shop_info.htm?shop_id=%s" % (wap,wap)
         wap = "http://shop"+wap+".m.taobao.com/"
         web = httplib2.Http()
-        r,c = web.request(wap, 'GET',headers={"User-Agent":"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.31 (KHTML, like Gecko) Chrome/26.0.1410.64 Safari/537.31"})
-        c = conv(c)
-        self.shop_name = self.shopname.search(c).group(1)
-        all_link = self.item_list.search(c).group(1).replace("&amp;",'&')
+        r,c = web.request(wap, 'GET',headers=header)
+        html = conv(c)
+        self.shop_name = self.shopname.search(html).group(1)
+        all_link = self.item_list.search(html).group(1).replace("&amp;",'&')
+        r,c = web.request(shop_info_url, 'GET',headers=header)
+        html = conv(c)
+        info = self.shop_info.findall(html)
+        for item in info:
+            self.shopinfo_str+=item[0] +":" +item[1] +item[2]+"\n"
         yield Request(all_link, method='get', callback=self.parse_item)
 
-    #抓取商品列表
+    #解析商品列表页
     def parse_item(self,response):
         items = []
         html = conv(response.body)
@@ -80,7 +90,7 @@ class TaobaoSpider(CrawlSpider):
            items.extend([self.make_requests_from_url(page_url).replace(callback=self.parse_item)])
         return items
 
-    #抓取商品
+    #解析商品详情页
     def parse_product(self,response):
         print '++++++++++++++++++++++++++++++++parse_product start'
         items=[]
@@ -97,19 +107,22 @@ class TaobaoSpider(CrawlSpider):
                  price = self.price3.search(html).group(1)
                 except AttributeError:
                     return items
+        #判断是不是运费补差商品,是的话不计入总销量
+        flag = 0
+        if float(price)==1.0 and self.product_title.search(html).group(1).find("补差")!=-1:
+            flag =1
         sales = self.sales.search(html).group(1)  #月销量
         shopid = self.b_shopid.search(html)  #匹配商城的店铺ID
         if shopid:
             shopid = shopid.group(1)
         else:
             shopid = self.c_shopid.search(html).group(1)
-
         pid = self.pid.search(html).group(1)
-
         print "MMMMMMMMMMMMMM:-----"+sales
         #过滤月销量为0的商品
         if int(sales)>0:
-            self.sales_num+=int(sales)
+            if not flag:   #运费补差商品不计入总销量
+                self.sales_num+=int(sales)
             self.money+=float(sales)*float(price)
             item = Product()
             item['shop_id'] = shopid
