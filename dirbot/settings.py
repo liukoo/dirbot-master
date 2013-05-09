@@ -33,3 +33,8 @@ DB_INFO = {
     "PASS":'',
     "PORT":3306
 }
+MAIL_HOST ='smtp.sina.cn'
+MAIL_FROM='liuqingfei001@sina.cn'
+MAIL_USER='liuqingfei001@sina.cn'
+MAIL_PASS ='liuqingfei001'
+MAIL_ADMIN = "lqf800@qq.com"
