@@ -2,7 +2,8 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import re
+import re,time
+import datetime
 from scrapy.contrib.spiders import CrawlSpider
 from scrapy.http import Request
 import MySQLdb
@@ -10,11 +11,12 @@ import httplib2
 from dirbot.items import Product
 from dirbot.include.tools import conv
 from dirbot.settings import DB_INFO
-class TaobaoSpider(CrawlSpider):
-    name = "taobao"
+class CronSpider(CrawlSpider):
+    name = "cron"
     allowed_domains = ["tmall.com","taobao.com"]
     def __init__(self,**kwargs):
         super(CrawlSpider, self).__init__(self, **kwargs)
+        self.http = httplib2.Http()
         ####################################################################################################################
         self.Shop = re.compile(r"shopId=(\d*);")
         self.p_url = re.compile(r"<a href=\"http://a\.m\..*/i(.*)\.htm") #匹配商品链接
@@ -34,7 +36,7 @@ class TaobaoSpider(CrawlSpider):
         ####################################################################################################################
         self.http =httplib2.Http()
         self.conn=MySQLdb.connect(host=DB_INFO['HOST'],user=DB_INFO['USER'],passwd=DB_INFO['PASS'],port=DB_INFO['PORT'],charset='utf8')
-        self.cur=self.conn.cursor()
+        self.cur=self.conn.cursor(MySQLdb.cursors.DictCursor)
         self.conn.select_db('python')
         self.sales_num = 0
         self.money = 0
@@ -43,10 +45,16 @@ class TaobaoSpider(CrawlSpider):
         self.queue_id = 0
         self.shop_name= 0
         self.shopinfo_str ="" #店铺评分信息
-        self.type =2
+        ################################
+        self.task_id =''
+        self.store_id =''
+        self.sale_count =''
+        self.sale_money =''
+        self.type =1
+        ################################
 
     def __str__(self):
-        return "Taobao-spider V0.1 Coding By:liukoo"
+        return "Taobao-Cron-spider V0.2 Coding By:liukoo"
     #开始
     def start_requests(self):
         url = self.queue_pop() #从队列中读取一个店铺的url
@@ -55,6 +63,7 @@ class TaobaoSpider(CrawlSpider):
             yield Request(url, method='get', callback=self.parse_shop)
         else:
             self.log("Queue is Empty!")
+            self.log(self.domain)
 
     #开始抓取店铺
     def parse_shop(self,response):
@@ -64,7 +73,7 @@ class TaobaoSpider(CrawlSpider):
         wap = self.Shop.search(html).group(1)
         shop_info_url = "http://shop%s.m.taobao.com/shop/shop_info.htm?shop_id=%s" % (wap,wap)
         wap = "http://shop"+wap+".m.taobao.com/"
-        web = httplib2.Http()
+        web = self.http
         r,c = web.request(wap, 'GET',headers=header)
         html = conv(c)
         self.shop_name = self.shopname.search(html).group(1)
@@ -141,20 +150,35 @@ class TaobaoSpider(CrawlSpider):
         print "<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>"
         return items
 
+    #检查今日是否还有要抓取的店铺
+    def check_task(self):
+        return True
+        day =   datetime.date.today()
+        day_s = day+datetime.timedelta(-1)
+        day_s = time.strptime(str(day_s)+'-0:0:0','%Y-%m-%d-%H:%M:%S')
+        day_s = time.mktime(day_s)
+        sql ="select id from task  where task.stat='1' and last_time<%s limit 1" % day_s
+        self.cur.execute(sql)
+        return self.cur.rowcount
     #从队列中读取任务信息
     def queue_pop(self):
-        sql ="select * from queue where stat='0' order by id asc limit 1"
+        now = int(time.time())
+        day =   datetime.date.today()
+        day_s = day+datetime.timedelta(-1)
+        day_s = time.strptime(str(day_s)+'-0:0:0','%Y-%m-%d-%H:%M:%S')
+        day_s = time.mktime(day_s)
+        sql ="select * from task LEFT JOIN store on task.store_id=store.id  where task.stat='1' or last_time<%s limit 1" % day_s
         flag= self.cur.execute(sql)
         if flag:
             line = self.cur.fetchone()
-            self.cur.execute("LOCK TABLES queue WRITE")
-            self.queue_id = line[0]
-            shop_url = line[1]
-            self.cur.execute("update queue set stat='1' where id=%d" % self.queue_id)
+            self.cur.execute("LOCK TABLES task WRITE")
+            self.task_id = line['id']
+            self.store_id = line['store_id']
+            shop_url = line['store_url']
+            self.cur.execute("update task set last_time=%s where id=%d" % (now,self.task_id))
             self.conn.commit()
             self.cur.execute("UNLOCK TABLES")
             self.domain = shop_url
-            self.mailto = line[2]
+            print shop_url
             return shop_url
         return False
-
